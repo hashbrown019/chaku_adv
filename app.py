@@ -133,5 +133,6 @@ def call_logs():
 	return render_template("_call_logs.html",logs = _LOGS, users= _USERS)
 
 
-app.run(host=c.HOST,port=c._PORT,debug=c.IS_DEBUG)
+app.run(debug=c.IS_DEBUG)
+# app.run(host=c.HOST,port=c._PORT,debug=c.IS_DEBUG)
 
