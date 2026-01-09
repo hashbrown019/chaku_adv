@@ -1,0 +1,4 @@
+HOST = "0.0.0.0"
+_PORT = 5000
+IS_DEBUG = True
+SECRET_KEY = "0000000"
