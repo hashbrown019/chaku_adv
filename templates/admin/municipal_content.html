@@ -36,9 +36,10 @@
                 <div class="space-y-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h1 class="text-3xl font-bold text-foreground">広告管理</h1>
-                            <p class="mt-2 text-muted-foreground">広告コンテンツの作成と管理</p>
-                        </div><a href="/new_ads"></a>
+                            <h1 class="text-3xl font-bold text-foreground">自治体コンテンツ管理</h1>
+                            <p class="mt-2 text-muted-foreground">コンテンツの作成と管理</p>
+                        </div>
+                        <!-- <a href="/new_ads"></a> -->
                     </div>
                     <div data-slot="card" class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
                         <div data-slot="card-header" class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
@@ -54,7 +55,7 @@
                                         	<th></th>
                                             <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <font dir="auto" style="vertical-align: inherit;">
-                                                    <font dir="auto" style="vertical-align: inherit;">タイトル/広告ID</font>
+                                                    <font dir="auto" style="vertical-align: inherit;">名前/コンテンツID</font>
                                                 </font>
                                             </th>
                                             <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
@@ -84,6 +85,11 @@
                                             </th>
                                             <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <font dir="auto" style="vertical-align: inherit;">
+                                                    <font dir="auto" style="vertical-align: inherit;">コンテンツタイプ</font>
+                                                </font>
+                                            </th>
+                                            <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
+                                                <font dir="auto" style="vertical-align: inherit;">
                                                     <font dir="auto" style="vertical-align: inherit;">広告ステータス</font>
                                                 </font>
                                             </th>
@@ -95,22 +101,22 @@
                                         </tr>
                                     </thead>
                                     <tbody data-slot="table-body" class="[&amp;_tr:last-child]:border-0">
-                                        {% for ad_id in ads %}
-                                        {% set ad = ads[ad_id] %}
-										{% set _path = ad['storagePath'] %}
+                                        {% for muni_content_id in municipal_content %}
+                                        {% set content = municipal_content[muni_content_id] %}
+										{% set _path = content['storagePath'] %}
 
                                         <tr data-slot="table-row" class="x-hover-pale-blue">
-											<td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] font-mono text-sm">
-												<a href="#" onclick="open_dialog('/view_ads_file?file_path={{_path}}')">
-													<span class="fa fa-play-circle x-text-blue x-xlarge" title="View ads"></span>
-												</a>
-											</td>
+                                            <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] font-mono text-sm">
+                                                <a href="#" onclick="open_dialog('/view_ads_file?file_path={{_path}}')">
+                                                    <span class="fa fa-play-circle x-text-blue x-xlarge" title="View ads"></span>
+                                                </a>
+                                            </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] font-mono text-sm">
                                                 <font dir="auto" style="vertical-align: inherit;">
                                                     <font class="x-small" dir="auto" style="vertical-align: inherit;">
-                                                        <b>{{ad['title']}}</b>
+                                                        <b>{{content['title']}}</b>
                                                     </font><br>
-                                                    <i class="x-tiny x-text-grey">{{ad_id}}</i>
+                                                    <i class="x-tiny x-text-grey">{{muni_content_id}}</i>
                                                 </font>
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
@@ -118,17 +124,17 @@
                                                     <span>
                                                         <font dir="auto" style="vertical-align: inherit;">
                                                             <font dir="auto" style="vertical-align: inherit;">
-                                                                {% if ad['advertiserId'] in advertisers %}
-                                                                    {{advertisers[ad['advertiserId']]['name']}}<br>
+                                                                {% if content['municipal_id'] in municipalities %}
+                                                                    {{municipalities[content['municipal_id']]['name']}}<br>
                                                                     <span class="x-tiny x-text-grey"> 
-                                                                        {{advertisers[ad['advertiserId']]['email']}}
+                                                                        {{municipalities[content['municipal_id']]['email']}}
                                                                     </span><br>
                                                                     <span class="x-tiny x-text-grey"> 
-                                                                        {{advertisers[ad['advertiserId']]['manager']}}
+                                                                        {{municipalities[content['municipal_id']]['mayor']}}
                                                                     </span><br>
                                                                 {% else %}
                                                                     <span class="x-small x-text-grey">
-                                                                        advertiser removed or not found
+                                                                        Municipality removed or not found
                                                                     </span>
                                                                 {% endif %}
                                                             </font>
@@ -138,13 +144,13 @@
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <div class="flex items-center gap-2"><span>
                                                     <font dir="auto" style="vertical-align: inherit;">
-                                                        <font dir="auto" style="vertical-align: inherit;">{{ad['description']}}</font>
+                                                        <font dir="auto" style="vertical-align: inherit;">{{content['description']}}</font>
                                                     </font>
                                                 </span></div>
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <font dir="auto" style="vertical-align: inherit;">
-                                                    <font dir="auto" style="vertical-align: inherit;">{{ad['radiusMeters']}}</font>
+                                                    <font dir="auto" style="vertical-align: inherit;">{{content['radiusMeters']}}</font>
                                                 </font>
                                                 <font dir="auto" style="vertical-align: inherit;">
                                                     <font dir="auto" style="vertical-align: inherit;">meters</font>
@@ -152,48 +158,58 @@
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <font dir="auto" style="vertical-align: inherit;">
-                                                    <font dir="auto" style="vertical-align: inherit;">{{ad['type']}}</font>
+                                                    <font dir="auto" style="vertical-align: inherit;">{{content['type']}}</font>
                                                 </font>
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
                                                 <font dir="auto" style="vertical-align: inherit;">
                                                     <font dir="auto" style="vertical-align: inherit;">
-                                                        {% set end_date = ad['createdAt']|string %}
+                                                        {% set end_date = content['createdAt']|string %}
                                                         {{end_date.split(" ")[0]}}
                                                     </font>
                                                 </font>
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
+                                                {%if content['use_for'] in ['emergency']%}
+                                                    {% set color = "red"%}
+                                                {%elif content['use_for'] in ['normal']%}
+                                                    {% set color = "blue"%}
+                                                {% else %}
+                                                    {% set color = "grey"%}
+                                                {%endif%}
+                                                <span class="x-round-xxlarge x-{{color}}" style="padding: 5px;">
+                                                    {{content['use_for']}}
+                                                </span>
+                                            </td>
+                                            <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px]">
 
-												{%if ad['status'] in ['rejected','suspended']%}
+												{%if content['status'] in ['rejected','suspended']%}
 													{% set color = "red"%}
-												{%elif ad['status'] in ['under_review','refund_processing']%}
+												{%elif content['status'] in ['under_review','refund_processing']%}
 													{% set color = "yellow"%}
-												{%elif ad['status'] in ['published','refunded']%}
+												{%elif content['status'] in ['published','refunded']%}
 													{% set color = "green"%}
 												{% else %}
 													{% set color = "grey"%}
 												{%endif%}
-                                                <select id="ads_stat_{{ad_id}}" class="x-text-{{color}} x-select x-round-large" onchange="set_stat_ads('{{ad_id}}',this.value)">
+                                                <select id="ads_stat_{{muni_content_id}}" class="x-text-{{color}} x-select x-round-large" onchange="set_stat_muni_content('{{muni_content_id}}',this.value)">
 													<option value="draft" disabled selected>下書き</option>
 													<option value="under_review" class="x-text-yellow">審査中</option>
 													<option value="published" class="x-text-green">公開済み</option>
 													<option value="rejected" class="x-text-red">却下</option>
-													<option value="refund_processing" class="x-text-yellow">返金処理中</option>
-													<option value="refunded" class="x-text-green">返金済み</option>
 													<option value="suspended" class="x-text-red">停止中</option>
 
                                                 </select>
                                                 <script>
                                                     $onload(function(){
-                                                        $ID('ads_stat_{{ad_id}}').value = "{{ad['status']}}"
+                                                        $ID('ads_stat_{{muni_content_id}}').value = "{{content['status']}}"
                                                     })
                                                 </script>
-                                                <span class="row"><br>{{ad['admin_note']}}</span>
+                                                <span class="row"><br>{{content['admin_note']}}</span>
                                             </td>
                                             <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] text-right">
                                                 
-                                                <a href="/rmads/{{ad_id}}">
+                                                <a href="/rmcontent_admin/{{muni_content_id}}">
                                                     <span class="fa fa-trash x-text-red x-xlarge" title="Delete"></span>
                                                 </a>
                                             </td>
@@ -210,29 +226,30 @@
     </div>
 
 	<!-- The Modal -->
-	<div id="dialog_reason" class="x-modal" style="" onclick="close_player()"><div class="x-modal-content x-round-large" style="max-width:50%;">
-        <div class="x-container x-padding">
-            この広告が停止／ブロックされた理由を入力してください
-            <div>
-                <textarea id="note" class="x-input x-textarea x-border" 
-                    placeholder="この広告が停止／ブロックされた理由の簡単な説明" 
-                    style="height: 40vh;"></textarea>
+	<div id="dialog_reason" class="x-modal" style="" onclick="close_player()">
+        <div class="x-modal-content x-round-large" style="max-width:50%;">
+            <div class="x-container x-padding">
+                このコンテンツが停止/ブロックされた理由を入力してください
+                <div>
+                    <textarea id="note" class="x-input x-textarea x-border" 
+                        placeholder="このコンテンツが停止/ブロックされた理由を入力してください" 
+                        style="height: 40vh;"></textarea>
+                </div>
+                <div class="x-container x-center x-padding-top"><br>
+                    <button class="x-button x-round-large x-border x-border-red x-text-red" 
+                        onclick="$ID('dialog_reason').style.display='none'">
+                        キャンセル
+                    </button>
+                    <button class="x-button x-round-large x-blue" onclick="submitnote()">
+                        理由を送信
+                    </button>
+                </div>
             </div>
-            <div class="x-container x-center x-padding-top"><br>
-                <button class="x-button x-round-large x-border x-border-red x-text-red" 
-                    onclick="$ID('dialog_reason').style.display='none'">
-                    キャンセル
-                </button>
-                <button class="x-button x-round-large x-blue" onclick="submitnote()">
-                    理由を送信
-                </button>
-            </div>
-        </div>
-        <span class="x-tiny x-text-grey">
-            広告ID: <b id='ad_id'></b> | アクション: <b id="val"></b>
-        </span>
-	</div>
-
+            <span class="x-tiny x-text-grey">
+                コンテンツID: <b id='muni_content_id'></b> | アクション: <b id="val"></b>
+            </span>
+    	</div>
+    </div>
 	<!-- The Modal -->
 	<div id="id01" class="x-modal" style="background-color: rgba(, 0, 0, 0.5)" onclick="close_player()">
 		<div class="x-modal-content x-round-large" style="max-width:50%;background-color: rgba(, 0, 0, 0.5)">
@@ -265,10 +282,9 @@
 	</div>
 	<script>
 		// $ID('dialog_reason').style.display="block";
-		function open_dialog(_path,ad_id){
-			$ID('ad_preview').src = _path
-
+		function open_dialog(_path,muni_content_id){
 			document.getElementById('id01').style.display='block'
+			$ID('ad_preview').src = _path
 			
 		}
 
@@ -279,24 +295,25 @@
 		}
 
 		function submitnote(){
-			var aid =$ID('ad_id').innerText
+			var aid =$ID('muni_content_id').innerText
 			var val = $ID('val').innerText
 			var note = $ID('note').value
-			_set_stat_ads(aid,val,note)
+			_set_stat_muni_content(aid,val,note)
 		}
 
-        function set_stat_ads(aid,val){
+        function set_stat_muni_content(aid,val){
+            println(aid+"---"+val)
         	if(['rejected','suspended'].indexOf(val) !== -1){
         		$ID('dialog_reason').style.display="block"
-        		$ID('ad_id').innerText = aid
+        		$ID('muni_content_id').innerText = aid
         		$ID('val').innerText = val
         	}else{
-        		_set_stat_ads(aid,val,"")
+        		_set_stat_muni_content(aid,val,"")
         	}
         }
-        function _set_stat_ads(aid,val,note){
+        function _set_stat_muni_content(aid,val,note){
         	$send({
-                action : '/set_stat_ads/'+aid +'/'+val+'?note='+note,
+                action : '/set_stat_muni_content/'+aid +'/'+val+'?note='+note,
                 method : GET,
                 func : function(r){
                     goto(r)

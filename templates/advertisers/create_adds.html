@@ -4,7 +4,33 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/static/css/next_styles.css" >
-	<link rel="preload" as="script" fetchpriority="low" href="/static/css/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_bae88007._.js">
+	<!-- <link rel="preload" as="script" fetchpriority="low" href="/static/css/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_bae88007._.js"> -->
+
+<!-- Firebase App (the core SDK) -->
+	
+	<script src="https://www.gstatic.com"></script>
+	<script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+	<script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+	<script type="module">
+		import firebase from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+		import "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+	  // Import the functions you need from the SDKs you want to use
+		const firebaseConfig = {
+		    apiKey: "YOUR_API_KEY",
+		    authDomain: "YOUR_AUTH_DOMAIN",
+		    projectId: "YOUR_PROJECT_ID",
+		    storageBucket: "YOUR_STORAGE_BUCKET",
+		    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+		    appId: "YOUR_APP_ID"
+		};
+
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+
+		// Get a reference to the storage service
+		const storageRef = firebase.storage().ref();
+
+	</script>
 
 	<script src="/static/js/brnLib.js"></script>
 	<link rel="stylesheet" href="/static/css/x.css" >
@@ -124,7 +150,7 @@
 							<input type="date" name="deliveryPeriod" class="x-input x-round x-border" required>
 
 							<br>
-							<span class="x-small x-left x-pale-yellow x-leftbar x-border-yellow"><b>NOTE:</b> 広告を高速に読み込むために、アップロードするファイルは30MB以下にすることをお勧めします。モバイルデータ通信を利用するモバイル端末では、広告をよりスムーズかつ高速に表示できます。</span>
+							<span class="x-small x-left x-pale-yellow x-leftbar x-border-yellow"><b>NOTE:</b> 広告を高速に読み込むために、アップロードするファイルは4.2MB以下にすることをお勧めします。モバイルデータ通信を利用するモバイル端末では、広告をよりスムーズかつ高速に表示できます。</span>
 							<br><br>
 							<div class="x-row">
 								<div class="upload-container">

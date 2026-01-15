@@ -33,15 +33,18 @@ class templates:
 		yyyy_mm_dd_hh_mm_ss_1 = yyyy_mm_dd_hh_mm_ss_1.split(".")[0]
 		yyyy_mm_dd_hh_mm_ss_2 = yyyy_mm_dd_hh_mm_ss_2.split(".")[0]
 		# Define two datetime objects (later date subtracted by earlier date for a positive result)
-		date1 = str(yyyy_mm_dd_hh_mm_ss_1).split(" ")
-		time1 =	list(map(int,date1[1].split(":")))
-		date1 = list(map(int, date1[0].split("-")))
-		date1 = datetime(*date1,*time1)
+		try:
+			date1 = str(yyyy_mm_dd_hh_mm_ss_1).split(" ")
+			time1 =	list(map(int,date1[1].split(":")))
+			date1 = list(map(int, date1[0].split("-")))
+			date1 = datetime(*date1,*time1)
 
-		date2 = str(yyyy_mm_dd_hh_mm_ss_2).split(" ")
-		time2 =	list(map(int,date2[1].split(":")))
-		date2 = list(map(int, date2[0].split("-")))
-		date2 = datetime(*date2,*time2)
+			date2 = str(yyyy_mm_dd_hh_mm_ss_2).split(" ")
+			time2 =	list(map(int,date2[1].split(":")))
+			date2 = list(map(int, date2[0].split("-")))
+			date2 = datetime(*date2,*time2)
+		except:
+			return "not calculated"
 	
 		# Calculate the difference (results in a timedelta object)
 		difference =  date2 - date1 
