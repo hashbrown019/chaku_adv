@@ -209,7 +209,10 @@ models/ad-phone-call-app-firebase-adminsdk-fbsvc-a67d9db4ec.json
 
 .vercel
 .env*.local
+<<<<<<< HEAD
 models/ad-phone-call-app-firebase-adminsdk-fbsvc-a67d9db4ec.json
 models/ad-phone-call-app-firebase-adminsdk-fbsvc-a67d9db4ec.json
 models/ad-phone-call-app-firebase-adminsdk-fbsvc-a67d9db4ec.json
 /models
+=======
+>>>>>>> parent of 963f532 (sd)
